@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-public class PlayerTests {
+public class PlayerTest {
     private AnimatedSprite animationMock;
     private Player player;
 
