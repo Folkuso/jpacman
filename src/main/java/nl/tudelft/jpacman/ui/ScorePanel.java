@@ -28,7 +28,7 @@ public class ScorePanel extends JPanel {
     /**
      * The map of players and the labels their scores are on.
      */
-    private final Map<Player, PlayerPanel> labels;
+    private transient final Map<Player, PlayerPanel> labels;
 
     /**
      * The default way in which the score is shown.
@@ -39,7 +39,7 @@ public class ScorePanel extends JPanel {
     /**
      * The way to format the score information.
      */
-    private ScoreFormatter scoreFormatter = DEFAULT_SCORE_FORMATTER;
+    private transient ScoreFormatter scoreFormatter = DEFAULT_SCORE_FORMATTER;
 
     /**
      * Creates a new score panel with a column for each player.
@@ -49,17 +49,19 @@ public class ScorePanel extends JPanel {
      */
     public ScorePanel(List<Player> players) {
         super();
-        assert players != null;
+        if(players == null || players.isEmpty()) {
+            throw new IllegalArgumentException("players cannot be null or empty");
+        }
 
         setLayout(new GridLayout(3, players.size()));
 
         for (int i = 1; i <= players.size(); i++) {
-            add(new JLabel("Player " + i, JLabel.CENTER));
+            add(new JLabel("Player " + i, javax.swing.SwingConstants.CENTER));
         }
         labels = new LinkedHashMap<>();
         for (Player player : players) {
-            JLabel scoreLabel = new JLabel("0", JLabel.CENTER);
-            JLabel livesLabel = new JLabel("0", JLabel.CENTER);
+            JLabel scoreLabel = new JLabel("0", javax.swing.SwingConstants.CENTER);
+            JLabel livesLabel = new JLabel("0", javax.swing.SwingConstants.CENTER);
             labels.put(player, new PlayerPanel(scoreLabel, livesLabel));
             add(scoreLabel);
             add(livesLabel);
@@ -101,7 +103,9 @@ public class ScorePanel extends JPanel {
      * @param scoreFormatter Score formatter to be used.
      */
     public void setScoreFormatter(ScoreFormatter scoreFormatter) {
-        assert scoreFormatter != null;
+        if(scoreFormatter == null) {
+            throw new IllegalArgumentException("scoreFormatter should not be null");
+        }
         this.scoreFormatter = scoreFormatter;
     }
 }

@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class ScorePanelTest {
+class ScorePanelTest {
     Player player;
     ScorePanel scorePanel;
 
@@ -24,12 +24,12 @@ public class ScorePanelTest {
     }
 
     @Test
-    public void testConstructorCreatesCorrectNumberOfLabels() {
+    void testConstructorCreatesCorrectNumberOfLabels() {
         assertEquals(3, scorePanel.getComponentCount());
     }
 
     @Test
-    public void testRefreshUpdatesScores() {
+    void testRefreshUpdatesScores() {
         when(player.getScore()).thenReturn(10);
         when(player.isAlive()).thenReturn(true);
 
@@ -40,7 +40,7 @@ public class ScorePanelTest {
     }
 
     @Test
-    public void testRefreshUpdatesLives() {
+    void testRefreshUpdatesLives() {
         when(player.getScore()).thenReturn(10);
         when(player.isAlive()).thenReturn(true);
         when(player.getLives()).thenReturn(2);
@@ -52,7 +52,7 @@ public class ScorePanelTest {
     }
 
     @Test
-    public void testRefreshDisplaysDeathMessage() {
+    void testRefreshDisplaysDeathMessage() {
         when(player.getScore()).thenReturn(10);
         when(player.isAlive()).thenReturn(false);
 
@@ -63,7 +63,7 @@ public class ScorePanelTest {
     }
 
     @Test
-    public void testSetScoreFormatterChangesScoreDisplay() {
+    void testSetScoreFormatterChangesScoreDisplay() {
         ScorePanel.ScoreFormatter customFormatter = player -> String.format("Custom score: %d", player.getScore());
         scorePanel.setScoreFormatter(customFormatter);
 
@@ -77,7 +77,7 @@ public class ScorePanelTest {
     }
 
     @Test
-    public void testDefaultScoreFormatter() {
+    void testDefaultScoreFormatter() {
         when(player.getScore()).thenReturn(10);
         when(player.isAlive()).thenReturn(true);
 
@@ -87,14 +87,13 @@ public class ScorePanelTest {
         assertEquals("Score:  10", formattedScore);
     }
 
-    @SuppressWarnings("DataFlowIssue")
     @Test
-    public void testNullPlayerListThrowsExceptionForSinglePlayer() {
-        assertThrows(AssertionError.class, () -> new ScorePanel(null));
+    void testNullPlayerListThrowsExceptionForSinglePlayer() {
+        assertThrows(IllegalArgumentException.class, () -> new ScorePanel(null));
     }
 
     @Test
-    public void testSetScoreFormatterNullFormatterThrowsExceptionForSinglePlayer() {
-        assertThrows(AssertionError.class, () -> scorePanel.setScoreFormatter(null));
+    void testSetScoreFormatterNullFormatterThrowsExceptionForSinglePlayer() {
+        assertThrows(IllegalArgumentException.class, () -> scorePanel.setScoreFormatter(null));
     }
 }

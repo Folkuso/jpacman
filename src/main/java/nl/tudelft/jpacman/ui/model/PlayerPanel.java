@@ -3,8 +3,8 @@ package nl.tudelft.jpacman.ui.model;
 import javax.swing.*;
 
 public class PlayerPanel {
-    JLabel scoreLabel;
-    JLabel livesLabel;
+    private final JLabel scoreLabel;
+    private final JLabel livesLabel;
 
     public PlayerPanel(JLabel scoreLabel, JLabel livesLabel) {
         this.scoreLabel = scoreLabel;

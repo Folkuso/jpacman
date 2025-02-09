@@ -9,25 +9,25 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-public class PlayerTest {
+class PlayerTest {
     private AnimatedSprite animationMock;
     private Player player;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         animationMock = Mockito.mock(AnimatedSprite.class);
         player = new Player(null, animationMock);
     }
 
     @Test
-    public void testAddFivePointsAddsInGetScore() {
+    void testAddFivePointsAddsInGetScore() {
         player.addPoints(5);
 
         assertThat(player.getScore()).isEqualTo(5);
     }
 
     @Test
-    public void testAddMultiplePointsAddsInGetScore() {
+    void testAddMultiplePointsAddsInGetScore() {
         player.addPoints(5);
         player.addPoints(10);
         player.addPoints(0);
@@ -37,7 +37,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testIsAliveTrueWhenTwoDeaths() {
+    void testIsAliveTrueWhenTwoDeaths() {
         player.setAlive(false);
         player.setAlive(false);
 
@@ -45,7 +45,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testIsAliveFalseWhenThreeDeaths() {
+    void testIsAliveFalseWhenThreeDeaths() {
         player.setAlive(false);
         player.setAlive(false);
         player.setAlive(false);
@@ -54,7 +54,7 @@ public class PlayerTest {
     }
 
     @Test
-    public void testIsAliveTrueWhenIsAliveTrue() {
+    void testIsAliveTrueWhenIsAliveTrue() {
         player.setAlive(true);
 
         assertThat(player.getKiller()).isNull();
