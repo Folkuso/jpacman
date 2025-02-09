@@ -25,7 +25,7 @@ public class ScorePanelTest {
 
     @Test
     public void testConstructorCreatesCorrectNumberOfLabels() {
-        assertEquals(2, scorePanel.getComponentCount());
+        assertEquals(3, scorePanel.getComponentCount());
     }
 
     @Test
@@ -48,7 +48,7 @@ public class ScorePanelTest {
         scorePanel.refresh();
 
         JLabel livesLabel = (JLabel) scorePanel.getComponent(2);
-        assertEquals("Lives:  2", livesLabel.getText());
+        assertEquals("Lives: 2", livesLabel.getText());
     }
 
     @Test
@@ -58,8 +58,8 @@ public class ScorePanelTest {
 
         scorePanel.refresh();
 
-        JLabel scoreLabel = (JLabel) scorePanel.getComponent(1);
-        assertTrue(scoreLabel.getText().startsWith("You died."));
+        JLabel scoreLabel = (JLabel) scorePanel.getComponent(2);
+        assertEquals("You died.", scoreLabel.getText());
     }
 
     @Test
@@ -87,6 +87,7 @@ public class ScorePanelTest {
         assertEquals("Score:  10", formattedScore);
     }
 
+    @SuppressWarnings("DataFlowIssue")
     @Test
     public void testNullPlayerListThrowsExceptionForSinglePlayer() {
         assertThrows(AssertionError.class, () -> new ScorePanel(null));
