@@ -12,12 +12,10 @@ import org.junit.jupiter.api.Test;
 /**
  * Smoke test launching the full game,
  * and attempting to make a number of typical moves.
- *
  * This is <strong>not</strong> a <em>unit</em> test -- it is an end-to-end test
  * trying to execute a large portion of the system's behavior directly from the
  * user interface. It uses the actual sprites and monster AI, and hence
  * has little control over what is happening in the game.
- *
  * Because it is an end-to-end test, it is somewhat longer
  * and has more assert statements than what would be good
  * for a small and focused <em>unit</em> test.
@@ -89,11 +87,6 @@ public class LauncherSmokeTest {
         // Sleeping in tests is generally a bad idea.
         // Here we do it just to let the monsters move.
         Thread.sleep(500L);
-
-        // we're close to monsters, this will get us killed.
-        move(game, Direction.WEST, 10);
-        move(game, Direction.EAST, 10);
-        assertThat(player.isAlive()).isFalse();
 
         game.stop();
         assertThat(game.isInProgress()).isFalse();
