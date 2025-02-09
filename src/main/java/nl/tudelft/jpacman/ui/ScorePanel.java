@@ -28,7 +28,7 @@ public class ScorePanel extends JPanel {
     /**
      * The map of players and the labels their scores are on.
      */
-    private transient final Map<Player, PlayerPanel> labels;
+    private final transient Map<Player, PlayerPanel> labels;
 
     /**
      * The default way in which the score is shown.
@@ -55,14 +55,16 @@ public class ScorePanel extends JPanel {
 
         setLayout(new GridLayout(3, players.size()));
 
-        for (int i = 1; i <= players.size(); i++) {
-            add(new JLabel("Player " + i, javax.swing.SwingConstants.CENTER));
-        }
         labels = new LinkedHashMap<>();
-        for (Player player : players) {
+        for (int i = 0; i < players.size(); i++) {
+            var playerNumber = String.valueOf(i + 1);
+            JLabel playerNumberLabel = new JLabel("Player " + playerNumber, javax.swing.SwingConstants.CENTER);
             JLabel scoreLabel = new JLabel("0", javax.swing.SwingConstants.CENTER);
             JLabel livesLabel = new JLabel("0", javax.swing.SwingConstants.CENTER);
-            labels.put(player, new PlayerPanel(scoreLabel, livesLabel));
+
+            labels.put(players.get(i), new PlayerPanel(scoreLabel, livesLabel));
+
+            add(playerNumberLabel);
             add(scoreLabel);
             add(livesLabel);
         }
@@ -74,15 +76,22 @@ public class ScorePanel extends JPanel {
     protected void refresh() {
         for (var entry : labels.entrySet()) {
             Player player = entry.getKey();
+
             var score = scoreFormatter.format(player);
-            var lives = "Lives: " + player.getLives();
-            if(!player.isAlive()) {
-                lives = "You died.";
-            }
+            var lives = getLives(player);
+
             var labelEntries = entry.getValue();
             labelEntries.setScoreText(score);
             labelEntries.setLivesText(lives);
         }
+    }
+
+    private static String getLives(Player player) {
+        var lives = "Lives: " + player.getLives();
+        if(!player.isAlive()) {
+            lives = "You died.";
+        }
+        return lives;
     }
 
     /**
