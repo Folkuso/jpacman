@@ -40,6 +40,18 @@ public class ScorePanelTest {
     }
 
     @Test
+    public void testRefreshUpdatesLives() {
+        when(player.getScore()).thenReturn(10);
+        when(player.isAlive()).thenReturn(true);
+        when(player.getLives()).thenReturn(2);
+
+        scorePanel.refresh();
+
+        JLabel livesLabel = (JLabel) scorePanel.getComponent(2);
+        assertEquals("Lives:  2", livesLabel.getText());
+    }
+
+    @Test
     public void testRefreshDisplaysDeathMessage() {
         when(player.getScore()).thenReturn(10);
         when(player.isAlive()).thenReturn(false);
