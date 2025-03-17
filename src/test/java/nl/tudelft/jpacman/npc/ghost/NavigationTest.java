@@ -34,6 +34,7 @@ public class NavigationTest {
         Board b = parser
             .parseMap(Lists.newArrayList("#####", "#.. #", "#####"))
             .getBoard();
+
         Square square1 = b.squareAt(0, 1);
         Square square2 = b.squareAt(1, 1);
 
